@@ -4,3 +4,9 @@ notifications:
   email:
     - dev@beingadrian.com
     - unathi.chonco@students.makeschool.com
+
+gemfile:
+  - Gemfile
+
+rvm:
+  - 2.2
