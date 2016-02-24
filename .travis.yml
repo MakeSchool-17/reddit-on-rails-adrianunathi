@@ -2,5 +2,5 @@ language: ruby
 
 notifications:
   email:
-    - one@example.com
-    - other@example.com
+    - dev@beingadrian.com
+    - unathi.chonco@students.makeschool.com
