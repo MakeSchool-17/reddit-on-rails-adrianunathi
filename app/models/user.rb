@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  has_many :subboards, dependent: :destroy
+
   before_save :downcase_email
   validates :username, presence: true, length: {maximum: 50, minimum: 5}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
