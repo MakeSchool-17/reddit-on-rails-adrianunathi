@@ -29,4 +29,10 @@ class ModeratorTest < ActiveSupport::TestCase
     assert_not moderator.valid?
   end
 
+  test "user is moderating a subboard" do
+    @otheruser.save
+    @subboard.save
+    assert_equal @subboard.moderators.first.id, @otheruser.moderating.first.id
+  end
+
 end
