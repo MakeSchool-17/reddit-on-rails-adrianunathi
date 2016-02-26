@@ -22,4 +22,11 @@ class ModeratorTest < ActiveSupport::TestCase
     assert_not sample_mod.valid?
   end
 
+  test "should be a valid user" do
+    invalid_user = User.new
+    moderator = @subboard.moderators.build(user: invalid_user)
+
+    assert_not @subboard.valid?
+  end
+
 end
