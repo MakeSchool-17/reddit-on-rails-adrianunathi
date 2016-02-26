@@ -26,7 +26,7 @@ class ModeratorTest < ActiveSupport::TestCase
     invalid_user = User.new
     moderator = @subboard.moderators.build(user: invalid_user)
 
-    assert_not @subboard.valid?
+    assert_not moderator.valid?
   end
 
 end
