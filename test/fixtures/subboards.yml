@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  private: false
+
+two:
+  name: MyString
+  private: false
+
+most_recent:
+  name: "bobbyboard"
+  private: false
+  created_at: <%= Time.zone.now %>
