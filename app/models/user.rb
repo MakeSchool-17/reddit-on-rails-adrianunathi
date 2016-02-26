@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   has_many :subboards, dependent: :destroy
 
-  before_save :downcase_email
+  before_save :downcase_email!
   validates :username, presence: true,
                        length: { maximum: 50, minimum: 5 },
                        uniqueness: { case_sensitive: false }
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   private
 
-    def downcase_email
+    def downcase_email!
       self.email.downcase!
     end
 

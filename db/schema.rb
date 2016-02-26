@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20160225222110) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "subboards", ["user_id", "created_at"], name: "index_subboards_on_user_id_and_created_at"
   add_index "subboards", ["user_id"], name: "index_subboards_on_user_id"
 
   create_table "users", force: :cascade do |t|
