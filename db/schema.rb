@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225222110) do
+ActiveRecord::Schema.define(version: 20160226225555) do
+
+  create_table "moderators", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "subboard_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "moderators", ["subboard_id"], name: "index_moderators_on_subboard_id"
+  add_index "moderators", ["user_id"], name: "index_moderators_on_user_id"
 
   create_table "subboards", force: :cascade do |t|
     t.string   "name"

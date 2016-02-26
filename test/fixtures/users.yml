@@ -5,5 +5,5 @@ one:
   email: mystring@email.com
 
 two:
-  username: MyString
-  email: MyString
+  username: seconduser
+  email: usertwo@email.com
