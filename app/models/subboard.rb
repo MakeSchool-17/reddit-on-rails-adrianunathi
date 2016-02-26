@@ -1,20 +1,25 @@
 class Subboard < ActiveRecord::Base
-  before_create :lowercase_name
+  before_save :downcase_name
+  before_save :remove_spaces_for_name
 
-  belongs_to :owner
-  
+  belongs_to :user
+
+  default_scope -> { order(created_at: :desc) }
   validates :name, presence: true,
                    length: { minimum: 3, maximum: 30 },
-                   exclusion: { in: %w(\s) },
-                   uniqueness: true
+                   uniqueness: { case_sensitive: false }
   validates :private, inclusion: { in: [true, false] }
-  validates :owner, presence: true
-  validates_associated :owner
+  validates :user_id, presence: true
+  validates_associated :user
 
   private
 
-    def lowercase_name
-      self.name.lowercase!
+    def downcase_name
+      self.name.downcase!
+    end
+
+    def remove_spaces_for_name
+      self.name.delete!(' ')
     end
 
 end

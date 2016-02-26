@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class SubboardTest < ActiveSupport::TestCase
+
   def setup
     @user = users(:one)
-
     @subboard = @user.subboards.build(name: "NewBoard", private: false)
   end
 
@@ -33,11 +33,12 @@ class SubboardTest < ActiveSupport::TestCase
     assert_equal mixed_case_name.downcase, @subboard.reload.name
   end
 
-  test "name should disclude whitespace" do
+  test "name should remove white spaces on save" do
     name_with_space = "name with space"
     @subboard.name = name_with_space
     @subboard.save
     assert_equal "namewithspace", @subboard.reload.name
+    assert @subboard.valid?
   end
 
   test "name should be unique" do
@@ -48,10 +49,11 @@ class SubboardTest < ActiveSupport::TestCase
 
   test "private should be set" do
     @subboard.private = nil
-    assert_not @micropost.valid?
+    assert_not @subboard.valid?
   end
 
   test "order should be most recent first" do
     assert_equal subboards(:most_recent), Subboard.first
   end
+
 end

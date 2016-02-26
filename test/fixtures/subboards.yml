@@ -7,3 +7,8 @@ one:
 two:
   name: MyString
   private: false
+
+most_recent:
+  name: "bobbyboard"
+  private: false
+  created_at: <%= Time.zone.now %>
