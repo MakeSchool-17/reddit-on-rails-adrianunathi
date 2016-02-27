@@ -7,6 +7,5 @@ class CreateSubboards < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :subboards, [:user_id, :created_at]
   end
 end

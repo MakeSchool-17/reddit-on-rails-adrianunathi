@@ -1,8 +1,11 @@
 class User < ActiveRecord::Base
+  before_save :downcase_email!
 
   has_many :subboards, dependent: :destroy
+  has_many :moderating, foreign_key: "user_id",
+                        class_name: "Moderator",
+                        dependent: :destroy
 
-  before_save :downcase_email
   validates :username, presence: true,
                        length: { maximum: 50, minimum: 5 },
                        uniqueness: { case_sensitive: false }
@@ -14,7 +17,7 @@ class User < ActiveRecord::Base
 
   private
 
-    def downcase_email
+    def downcase_email!
       self.email.downcase!
     end
 
