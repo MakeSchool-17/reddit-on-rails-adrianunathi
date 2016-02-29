@@ -3,8 +3,8 @@ require 'test_helper'
 class ModeratorTest < ActiveSupport::TestCase
 
   def setup
-    @otheruser = users(:two)
-    @subboard = subboards(:myboard)
+    @otheruser = users(:leila)
+    @subboard = subboards(:michaels_board)
     @moderator = @subboard.moderators.build(user: @otheruser)
   end
 
