@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(version: 20160229035027) do
   add_index "moderators", ["subboard_id"], name: "index_moderators_on_subboard_id"
   add_index "moderators", ["user_id"], name: "index_moderators_on_user_id"
 
+  create_table "posts", force: :cascade do |t|
+    t.text     "title"
+    t.text     "link"
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "subboard_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "posts", ["subboard_id"], name: "index_posts_on_subboard_id"
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
   create_table "subboards", force: :cascade do |t|
     t.string   "name"
     t.boolean  "private"
