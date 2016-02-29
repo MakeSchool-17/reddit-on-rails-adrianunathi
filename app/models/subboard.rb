@@ -4,6 +4,9 @@ class Subboard < ActiveRecord::Base
 
   belongs_to :user
   has_many :moderators, dependent: :destroy
+  has_many :posts, foreign_key: "subboard_id",
+           class_name: "Post",
+           dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
   validates :name, presence: true,

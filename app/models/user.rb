@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :moderating, foreign_key: "user_id",
                         class_name: "Moderator",
                         dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   validates :username, presence: true,
                        length: { maximum: 50, minimum: 5 },
