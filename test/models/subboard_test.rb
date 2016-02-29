@@ -3,7 +3,7 @@ require 'test_helper'
 class SubboardTest < ActiveSupport::TestCase
 
   def setup
-    @user = users(:one)
+    @user = users(:michael)
     @subboard = @user.subboards.build(name: "NewBoard", private: false)
   end
 
