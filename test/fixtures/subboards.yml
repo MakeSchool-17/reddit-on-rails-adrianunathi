@@ -1,15 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-myboard:
-  user: one
-  name: myboard
+michaels_board:
+  user: michael
+  name: mikesboard
   private: false
 
-two:
-  name: MyString
+cats_board:
+  user: lana
+  name: cats
   private: false
+
+jokes_board:
+  user: john
+  name: jokes
+  private: false
+
+private:
+  user: james
+  name: badstuff
+  private: true
 
 most_recent:
-  name: "bobbyboard"
+  name: "recentboard"
   private: false
   created_at: <%= Time.zone.now %>

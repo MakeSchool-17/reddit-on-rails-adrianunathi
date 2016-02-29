@@ -3,8 +3,8 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
 
   def setup
-    @user = users(:one)
-    @subboard = subboards(:myboard)
+    @user = users(:michael)
+    @subboard = subboards(:michaels_board)
     @urlpost = @user.posts.build(title: "Sample Post", link: "https://github.com", subboard: @subboard)
     @contentpost = @user.posts.build(title: "Sample Post", content: "This is a bunch of text content", subboard: @subboard)
   end
