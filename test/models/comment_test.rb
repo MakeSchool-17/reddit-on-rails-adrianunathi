@@ -3,9 +3,9 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
 
   def setup
-    @user = users(:michael)
-    @subboard = subboards(:michaels_board)
-    @post = posts(:sample_post)
+    @user = users(:bob)
+    @subboard = subboards(:bobs_board)
+    @post = posts(:bobs_post)
     @comment = @user.comments.build(content: "Life is great.", post: @post)
   end
 
@@ -14,7 +14,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "subcomment should be valid" do
-    @comment.save
+    @comment.save!
     new_comment = @user.comments.build(content: "Life is even greater.", post: @post, parent: @comment)
     assert new_comment.valid?
   end
@@ -30,19 +30,19 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "user has comments" do
-    @comment.save
+    @comment.save!
     assert_equal @user.comments.first, @comment
   end
 
   test "post has comments" do
-    @comment.save
+    @comment.save!
     assert_equal @post.comments.first, @comment
   end
 
   test "comment has comments" do
-    @comment.save
+    @comment.save!
     new_comment = @user.comments.build(content: "Life is even greater.", post: @post, parent: @comment)
-    new_comment.save
+    new_comment.save!
     assert_equal @comment.subcomments.first, new_comment
   end
 

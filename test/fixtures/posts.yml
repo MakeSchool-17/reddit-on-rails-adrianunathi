@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-sample_post:
+bobs_post:
   title: Some Title
   link:
   content: Some content is good.
-  user: michael
-  subboard: michaels_board
+  user: bob
+  subboard: bobs_board
 
 most_recent:
   title: Recent Post Title

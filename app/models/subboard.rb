@@ -1,6 +1,8 @@
 class Subboard < ActiveRecord::Base
-  before_save :downcase_name!,
-              :remove_spaces_for_name!
+
+  before_validation :downcase_name!,
+                    :remove_spaces_for_name!,
+                    unless: lambda { |s| !s.name }
 
   belongs_to :user
   has_many :moderators, dependent: :destroy
@@ -9,7 +11,9 @@ class Subboard < ActiveRecord::Base
   default_scope -> { order(created_at: :desc) }
   validates :name, presence: true,
                    length: { minimum: 3, maximum: 30 },
-                   uniqueness: { case_sensitive: false }
+                   uniqueness: { case_sensitive: false },
+                   format: { with: /^[A-Za-z0-9.&]*\z/,
+                            multiline: true}
   validates :private, inclusion: { in: [true, false] }
   validates :user_id, presence: true
   validates_associated :user

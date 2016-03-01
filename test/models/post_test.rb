@@ -3,8 +3,8 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
 
   def setup
-    @user = users(:michael)
-    @subboard = subboards(:michaels_board)
+    @user = users(:bob)
+    @subboard = subboards(:bobs_board)
     @urlpost = @user.posts.build(title: "Sample Post", link: "https://github.com", subboard: @subboard)
     @contentpost = @user.posts.build(title: "Sample Post", content: "This is a bunch of text content", subboard: @subboard)
   end
@@ -27,7 +27,6 @@ class PostTest < ActiveSupport::TestCase
   test "should not have both link and content" do
     post_with_both = @user.posts.build(title: "Sample Post", link: "https://github.com", content: "Content here", subboard: @subboard)
     assert_not post_with_both.valid?
-
   end
 
   test "should have a link or content" do
@@ -36,8 +35,7 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "subboard has post from user" do
-    @contentpost.save
-
+    @contentpost.save!
     assert @user.posts.first, @subboard.posts.first
   end
 
