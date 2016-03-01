@@ -13,7 +13,7 @@ class Subboard < ActiveRecord::Base
                    length: { minimum: 3, maximum: 30 },
                    uniqueness: { case_sensitive: false },
                    format: { with: /^[A-Za-z0-9.&]*\z/,
-                            multiline: true}
+                             multiline: true } 
   validates :private, inclusion: { in: [true, false] }
   validates :user_id, presence: true
   validates_associated :user

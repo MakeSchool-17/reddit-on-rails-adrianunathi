@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  after_initialize :init
 
   belongs_to :user
   belongs_to :subboard
@@ -12,10 +13,17 @@ class Post < ActiveRecord::Base
   validates_associated :user
   validates_associated :subboard
 
-  validates_format_of :link, :with => URI::regexp(%w(http https)),
-                             :if => lambda { |object| object.link.present? }
+  validates_format_of :link, with: URI::regexp(%w(http https)),
+                             if: lambda { |post| post.link.present? }
+
+  validates :temperature, presence: true,
+                          numericality: { only_integer: true }
 
   validate :link_xor_content
+
+  def init
+    self.temperature ||= 0
+  end
 
   private
 

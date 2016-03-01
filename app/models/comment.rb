@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  after_initialize :init
 
   belongs_to :user
   belongs_to :post
@@ -14,5 +15,12 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :post_id, presence: true
   validates_associated :user, :post, :parent
+
+  validates :temperature, presence: true,
+                          numericality: { only_integer: true }
+
+  def init
+    self.temperature ||= 0
+  end
 
 end

@@ -46,6 +46,20 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal @comment.subcomments.first, new_comment
   end
 
+  test "temperature should be 0 initially" do
+    assert_equal 0, @comment.temperature
+  end
+
+  test "temperature should be valid" do
+    @comment.temperature = 100
+    assert @comment.valid?
+  end
+
+  test "temperature must be an integer" do
+    @comment.temperature = "bob"
+    assert_not @comment.valid?
+  end
+
   test "order should be most recent first" do
     assert_equal comments(:most_recent), Comment.first
   end
