@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-michaels_board:
-  user: michael
-  name: mikesboard
+bobs_board:
+  user: bob
+  name: bobsboard
   private: false
 
 cats_board:
