@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
                         class_name: "Moderator",
                         dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :username, presence: true,
                        length: { maximum: 50, minimum: 5 },

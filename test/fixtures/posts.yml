@@ -1,15 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyText
-  link: MyText
-  content: MyText
-  user_id: 
-  subboard_id: 
+sample_post:
+  title: Some Title
+  link:
+  content: Some content is good.
+  user: michael
+  subboard: michaels_board
 
-two:
-  title: MyText
-  link: MyText
-  content: MyText
-  user_id: 
-  subboard_id: 
+most_recent:
+  title: Recent Post Title
+  link:
+  content: I'm the most recent post ever.
+  user: michael
+  subboard: michaels_board
+  created_at: <%= Time.zone.now %>
