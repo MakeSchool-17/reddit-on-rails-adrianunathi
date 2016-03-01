@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+two:
+  content: MyText
+  user_id:
+  post_id:
+  parent_id:
+
+most_recent:
+  content: MyText
+  user: michael
+  post: sample_post
+  created_at: <%= Time.zone.now %>

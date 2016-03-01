@@ -35,26 +35,19 @@ class PostTest < ActiveSupport::TestCase
     assert_not post_with_both.valid?
   end
 
-  # test "link should be sanitized/valid url" do
-  #   invalid_urls = ["http://", "http://www.", "www.", "http://www.wvtesting","http://www.com","http://www. .com","wvtesting.com","www.wvtesting.com","http:/www.wvtesting.com","http//www.wvtesting.com","http:www.wvtesting.com","htp://wvtesting.com/"]
-  #
-  #   invalid_urls.each do |x|
-  #     @urlpost.link = x
-  #     assert_not @urlpost.valid?
-  #   end
-  #
-  # end
-
-  # test "order should be most recent first" do
-  #
-  # end
-
   test "subboard has post from user" do
-    @user.save
-    @subboard.save
     @contentpost.save
 
     assert @user.posts.first, @subboard.posts.first
+  end
+
+  test "bad link should be invalid" do
+    @urlpost.link = "http//google.com"
+    assert_not @urlpost.valid?
+  end
+
+  test "order should be most recent first" do
+    assert_equal posts(:most_recent), Post.first
   end
 
 end

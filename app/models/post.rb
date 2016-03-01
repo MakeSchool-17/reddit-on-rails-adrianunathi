@@ -3,14 +3,17 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :subboard
 
-  #has_many :comments, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
+  default_scope -> { order(created_at: :desc) }
 
   validates :user_id, presence: true
   validates_associated :user
   validates :subboard_id, presence: true
   validates_associated :subboard
 
-  # validate :check_if_url_valid
+  validates_format_of :link, :with => URI::regexp(%w(http https)),
+                             :if => lambda { |object| object.link.present? }
 
   validate :link_xor_content
 
@@ -21,4 +24,5 @@ class Post < ActiveRecord::Base
         errors.add(:base, "Must have link or content, but not both")
       end
     end
+
 end
