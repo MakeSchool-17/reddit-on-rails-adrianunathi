@@ -58,6 +58,8 @@ class CommentTest < ActiveSupport::TestCase
   test "temperature must be an integer" do
     @comment.temperature = "bob"
     assert_not @comment.valid?
+    @comment.temperature = 10.124
+    assert_not @comment.valid?
   end
 
   test "order should be most recent first" do

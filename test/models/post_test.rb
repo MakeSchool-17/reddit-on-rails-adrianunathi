@@ -56,6 +56,8 @@ class PostTest < ActiveSupport::TestCase
   test "temperature must be an integer" do
     @contentpost.temperature = "bob"
     assert_not @contentpost.valid?
+    @urlpost.temperature = 10.124
+    assert_not @urlpost.valid?
   end
 
   test "order should be most recent first" do
