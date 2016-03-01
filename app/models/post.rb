@@ -8,8 +8,8 @@ class Post < ActiveRecord::Base
   default_scope -> { order(created_at: :desc) }
 
   validates :user_id, presence: true
-  validates_associated :user
   validates :subboard_id, presence: true
+  validates_associated :user
   validates_associated :subboard
 
   validates_format_of :link, :with => URI::regexp(%w(http https)),
