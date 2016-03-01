@@ -41,7 +41,7 @@ class PostTest < ActiveSupport::TestCase
     assert @user.posts.first, @subboard.posts.first
   end
 
-  test "link should be valid" do
+  test "bad link should be invalid" do
     @urlpost.link = "http//google.com"
     assert_not @urlpost.valid?
   end
