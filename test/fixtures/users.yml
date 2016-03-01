@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-michael:
-  username: michael
-  email: michael@email.com
+bob:
+  username: bobiger
+  email: bob.iger@gmail.com
 
 leila:
   username: leila
