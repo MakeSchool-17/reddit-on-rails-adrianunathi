@@ -1,0 +1,2 @@
+module SubboardsHelper
+end
