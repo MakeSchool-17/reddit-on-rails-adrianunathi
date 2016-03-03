@@ -2,10 +2,9 @@ class Comment < ActiveRecord::Base
   after_initialize :init
 
   belongs_to :user
-  belongs_to :post
-  belongs_to :parent, class_name: "Comment"
+  belongs_to :parent, polymorphic: true
 
-  has_many :subcomments, foreign_key: "parent_id",
+  has_many :subcomments, as: :parent,
                          class_name: "Comment",
                          dependent: :destroy
 
@@ -13,8 +12,9 @@ class Comment < ActiveRecord::Base
 
   validates :content, presence: true
   validates :user_id, presence: true
-  validates :post_id, presence: true
-  validates_associated :user, :post, :parent
+  validates :parent_id, presence: true
+  validates :parent_type, presence: true
+  validates_associated :user, :parent
 
   validates :temperature, presence: true,
                           numericality: { only_integer: true }
