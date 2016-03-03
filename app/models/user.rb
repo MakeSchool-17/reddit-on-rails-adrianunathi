@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
                         dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   validates :username, presence: true,
                        length: { maximum: 50, minimum: 5 },
