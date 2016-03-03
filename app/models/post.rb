@@ -4,7 +4,9 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :subboard
 
-  has_many :comments, dependent: :destroy
+  has_many :comments, dependent: :destroy,
+                      as: :parent,
+                      class_name: "Comment"
 
   default_scope -> { order(created_at: :desc) }
 

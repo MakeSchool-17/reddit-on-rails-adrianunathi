@@ -6,7 +6,7 @@ class CommentTest < ActiveSupport::TestCase
     @user = users(:bob)
     @subboard = subboards(:bobs_board)
     @post = posts(:bobs_post)
-    @comment = @user.comments.build(content: "Life is great.", post: @post)
+    @comment = @user.comments.build(content: "Life is great.", parent: @post)
   end
 
   test "should be valid" do
@@ -15,17 +15,22 @@ class CommentTest < ActiveSupport::TestCase
 
   test "subcomment should be valid" do
     @comment.save!
-    new_comment = @user.comments.build(content: "Life is even greater.", post: @post, parent: @comment)
+    new_comment = @user.comments.build(content: "Life is even greater.", parent: @comment)
     assert new_comment.valid?
   end
 
   test "comment content should not be empty" do
-    empty_comment = @user.comments.build(content: "  ", post: @post)
+    empty_comment = @user.comments.build(content: "  ", parent: @post)
     assert_not empty_comment.valid?
   end
 
-  test "comment should have post id" do
-    @comment.post_id = nil
+  test "comment should have parent id" do
+    @comment.parent_id = nil
+    assert_not @comment.valid?
+  end
+
+  test "comment should have parent type" do
+    @comment.parent_type = nil
     assert_not @comment.valid?
   end
 
@@ -41,7 +46,7 @@ class CommentTest < ActiveSupport::TestCase
 
   test "comment has comments" do
     @comment.save!
-    new_comment = @user.comments.build(content: "Life is even greater.", post: @post, parent: @comment)
+    new_comment = @user.comments.build(content: "Life is even greater.", parent: @comment)
     new_comment.save!
     assert_equal @comment.subcomments.first, new_comment
   end
