@@ -7,6 +7,9 @@ class Subboard < ActiveRecord::Base
   belongs_to :user
   has_many :moderators, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :subscribers, foreign_key: "subboard_id",
+           class_name: "Subscription",
+           dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
   validates :name, presence: true,
