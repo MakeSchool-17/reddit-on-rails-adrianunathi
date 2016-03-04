@@ -1,4 +1,5 @@
 class Subscription < ActiveRecord::Base
+
   belongs_to :user
   belongs_to :subboard
 
@@ -7,4 +8,5 @@ class Subscription < ActiveRecord::Base
 
   validates_associated :user
   validates_associated :subboard
+
 end
