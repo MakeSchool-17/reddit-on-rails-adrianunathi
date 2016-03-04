@@ -8,6 +8,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       render json: { status: 201 }
+    else
+      render json: { error: @user.errors }
     end
   end
 
@@ -34,10 +36,10 @@ class UsersController < ApplicationController
 
   def index
     @user = User.all
-    render json: { status: 200, location: @user }
+    render json: { status: 200, users: @user }
   end
 
-  private 
+  private
 
     def user_params
       params.require(:user).permit(:username, :email)
