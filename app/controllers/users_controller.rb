@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      #It was valid and saved
+      render json: { status: 201 }
     end
   end
 
@@ -32,10 +32,15 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+  def index
+    @user = User.all
+    render json: { status: 200, location: @user }
+  end
+
+  private 
 
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
+      params.require(:user).permit(:username, :email)
     end
 
 end
