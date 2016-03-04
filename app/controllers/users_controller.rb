@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      #It was valid and saved
+      render json: { status: :created }
     end
   end
 
@@ -30,6 +30,11 @@ class UsersController < ApplicationController
     else
       # Show edit page ?
     end
+  end
+
+  def index
+    @user = User.all
+    render json: @user
   end
 
   private
