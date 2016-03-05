@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionController::TestCase
+class Api::V1::UsersControllerTest < ActionController::TestCase
 
   def setup
     @user = users(:bob)
