@@ -40,6 +40,13 @@ class UsersControllerTest < ActionController::TestCase
     assert_response 200
   end
 
+  test "should not show non-existing user for users#show" do
+    get :show, id: 1
+    response = JSON.parse(@response.body, { symbolize_names: true })
+    assert !response[:error].nil?, "Error should be present"
+    assert_response 503
+  end
+
   test "should delete user for users#destroy" do
     assert_difference 'User.all.length', -1 do
       post :destroy, id: @user.id
@@ -63,6 +70,14 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should not update non-existing user for users#update" do
     json = { format: 'json', id: 1, user: { username: "serendipity" }}
+    post :update, json
+    assert_response 503
+    response = JSON.parse(@response.body, { symbolize_names: true })
+    assert !response[:error].nil?, "Error should be present"
+  end
+
+  test "should not update user with bad params for users#update" do
+    json = { format: 'json', id: @user.id, user: { username: "bob" }}
     post :update, json
     assert_response 503
     response = JSON.parse(@response.body, { symbolize_names: true })

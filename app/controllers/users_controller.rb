@@ -10,11 +10,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
     if !@user.nil?
       render json: @user, status: 200
     else
-      render json: { error: @user.errors }, status: 500
+      render json: { error: "No users found with id" }, status: 503
     end
 
   end
@@ -27,10 +27,6 @@ class UsersController < ApplicationController
     else
       render json: { error: "No users found with id" }, status: 503
     end
-  end
-
-  def edit
-    @user = User.find(params[:id])
   end
 
   def update
