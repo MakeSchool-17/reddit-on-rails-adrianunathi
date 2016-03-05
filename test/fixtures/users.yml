@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+bob:
+  username: bobiger
+  email: bob.iger@gmail.com
+
+leila:
+  username: leila
+  email: leila@email.com
+
+james:
+  username: james
+  email: james@email.com
+
+john:
+  username: john
+  email: john@email.com

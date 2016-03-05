@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+bobs_post:
+  title: Some Title
+  link:
+  content: Some content is good.
+  user: bob
+  subboard: bobs_board
+
+most_recent:
+  title: Recent Post Title
+  link:
+  content: I'm the most recent post ever.
+  user: michael
+  subboard: michaels_board
+  created_at: <%= Time.zone.now %>
