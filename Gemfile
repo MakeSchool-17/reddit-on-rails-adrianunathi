@@ -34,6 +34,7 @@ group :development, :test do
   gem 'spring', '~> 1.6', '>= 1.6.3'
   gem 'sqlite3', '~> 1.3', '>= 1.3.11'
   gem 'byebug', '~> 8.2', '>= 8.2.2'
+  gem 'pry'
 end
 
 group :test do
