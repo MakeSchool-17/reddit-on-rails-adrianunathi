@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303190254) do
+ActiveRecord::Schema.define(version: 20160308020356) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "temperature"
     t.integer  "parent_id"
     t.string   "parent_type"
   end
@@ -44,7 +43,6 @@ ActiveRecord::Schema.define(version: 20160303190254) do
     t.integer  "subboard_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "temperature"
   end
 
   add_index "posts", ["subboard_id"], name: "index_posts_on_subboard_id"
@@ -69,6 +67,18 @@ ActiveRecord::Schema.define(version: 20160303190254) do
 
   add_index "subscriptions", ["subboard_id"], name: "index_subscriptions_on_subboard_id"
   add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
+
+  create_table "temperatures", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.string   "post_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "temptype"
+  end
+
+  add_index "temperatures", ["post_type", "post_id"], name: "index_temperatures_on_post_type_and_post_id"
+  add_index "temperatures", ["user_id"], name: "index_temperatures_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
