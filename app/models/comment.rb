@@ -1,8 +1,13 @@
 class Comment < ActiveRecord::Base
-  after_initialize :init
 
   belongs_to :user
   belongs_to :parent, polymorphic: true
+  belongs_to :post, polymorphic: true
+
+
+  has_many :tempsetters, as: :post,
+           class_name: "Temperature",
+           dependent: :destroy
 
   has_many :subcomments, as: :parent,
                          class_name: "Comment",
@@ -15,12 +20,5 @@ class Comment < ActiveRecord::Base
   validates :parent_id, presence: true
   validates :parent_type, presence: true
   validates_associated :user, :parent
-
-  validates :temperature, presence: true,
-                          numericality: { only_integer: true }
-
-  def init
-    self.temperature ||= 0
-  end
 
 end
