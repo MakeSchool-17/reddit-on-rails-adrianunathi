@@ -37,6 +37,7 @@ class TemperatureTest < ActiveSupport::TestCase
   test "user has thermostats of votes" do
     @otheruser.save
     @post.save
+    @temperature.save
     assert_equal @post.tempsetters.first.id, @otheruser.thermostats.first.id
   end
 

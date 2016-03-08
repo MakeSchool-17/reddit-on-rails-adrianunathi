@@ -1,13 +1,11 @@
 class User < ActiveRecord::Base
   before_save :downcase_email!
 
-  belongs_to :post, polymorphic: true
 
-
-  has_many :thermostats, as: :post,
-           foreign_key: "user_id",
+  has_many :thermostats, foreign_key: "user_id",
            class_name: "Temperature",
            dependent: :destroy
+
   has_many :subboards, dependent: :destroy
   has_many :moderating, foreign_key: "user_id",
                         class_name: "Moderator",
