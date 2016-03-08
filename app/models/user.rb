@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
   before_save :downcase_email!
 
+
+  has_many :thermostats, foreign_key: "user_id",
+           class_name: "Temperature",
+           dependent: :destroy
+
   has_many :subboards, dependent: :destroy
   has_many :moderating, foreign_key: "user_id",
                         class_name: "Moderator",
