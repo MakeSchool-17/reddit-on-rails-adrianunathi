@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     scope module: :v1 do
 
       resources :users
-      # resources :subboards
+      resources :subboards
+      # get 'subboards/:name' => 'api/v1/subboards#show'
       # resources :posts
       # resources :comments
       # resources :moderators
