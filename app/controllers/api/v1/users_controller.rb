@@ -47,7 +47,7 @@ module Api
 
       def index
         @user = User.all
-        render json: { status: 200, users: @user }
+        render json: { users: @user }, status: 200
       end
 
       private
@@ -60,4 +60,3 @@ module Api
 
   end
 end
-
