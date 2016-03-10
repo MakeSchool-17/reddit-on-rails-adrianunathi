@@ -16,13 +16,13 @@ class Subboard < ActiveRecord::Base
                    length: { minimum: 3, maximum: 30 },
                    uniqueness: { case_sensitive: false },
                    format: { with: /^[A-Za-z0-9.&]*\z/,
-                             multiline: true } 
+                             multiline: true }
   validates :private, inclusion: { in: [true, false] }
   validates :user_id, presence: true
   validates_associated :user
 
   def to_json
-    {:id => self.id, :name => self.name, :private => self.private, :owner_username => self.user.username}
+    { :id => self.id, :name => self.name, :private => self.private, :owner_username => self.user.username }
   end
 
   private

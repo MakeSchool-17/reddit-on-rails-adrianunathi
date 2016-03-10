@@ -7,8 +7,8 @@ Rails.application.routes.draw do
       resources :users
       resources :users, param: :username
       resources :subboards, param: :name
-
-      # resources :posts
+      resources :posts
+      
       # resources :comments
       # resources :moderators
       # List all resources here
