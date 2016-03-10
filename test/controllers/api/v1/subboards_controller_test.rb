@@ -29,26 +29,26 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
     json = { format: 'json', subboard: { name: "a", private: false}}
     post :create, json
     response = JSON.parse(@response.body)
-    assert !response["error"].nil?, "Error should be present"
-    assert !response["error"].empty?, "Error messages should be present"
+    assert_not response["error"].nil?, "Error should be present"
+    assert_not response["error"].empty?, "Error messages should be present"
     assert_response 500
   end
 
   test "should show subboard for subboard#show" do
     get :show, name: @subboard.name
     response = JSON.parse(@response.body, { symbolize_names: true })
-    assert_equal @subboard.name, response[:name]
+    assert_equal response[:name], @subboard.name
     assert_response 200
   end
 
   test "should not show non-existing subboard for subboard#show" do
     get :show, name: 'blah blah'
     response = JSON.parse(@response.body, { symbolize_names: true })
-    assert !response[:error].nil?, "Error should be present"
+    assert_not response[:error].nil?, "Error should be present"
     assert_response 503
   end
 
-  test "should delete user for subboard#destroy" do
+  test "should delete subboard for subboard#destroy" do
     assert_difference 'Subboard.all.length', -1 do
       post :destroy, name: @subboard.name
       assert_response 200
@@ -81,7 +81,7 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
     post :update, json
     assert_response 503
     response = JSON.parse(@response.body, { symbolize_names: true })
-    assert !response[:error].nil?, "Error should be present"
+    assert_not response[:error].nil?, "Error should be present"
   end
 
   test "should not update subboard with bad params for subboard#update" do
@@ -89,7 +89,7 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
     post :update, json
     assert_response 503
     response = JSON.parse(@response.body, { symbolize_names: true })
-    assert !response[:error].nil?, "Error should be present"
+    assert_not response[:error].nil?, "Error should be present"
   end
 
 end

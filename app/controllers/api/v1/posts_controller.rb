@@ -4,23 +4,63 @@ module Api
     class PostsController < ApplicationController
 
       def create
-        @post = current_user.posts.build(post_params)
+        @user = User.find_by_username(post_params[:author_username])
+        @subboard = Subboard.find_by_name(post_params[:subboard_name])
+        @post = @user.posts.build({ title: post_params[:title],
+                                    link: post_params[:link],
+                                    content: post_params[:content],
+                                    subboard: @subboard })
         if @post.save
-          # What to dhow when comment made
+          render json: {}, status: 201
         else
-          # Save failed
+          render json: { error: @post.errors.full_messages }, status: 500
         end
       end
 
+      def show
+        @post = Post.find_by_id(params[:id])
+        if not @post.nil?
+          render json: @post.to_json, status: 200
+        else
+          render json: { error: "No post found with id" }, status: 503
+        end
+      end
+
+      def index
+        @posts = Array.new
+        Post.all.each do |post|
+          @posts.append post.to_json
+        end
+        render json: { status: 200, posts: @posts }
+      end
+
       def destroy
-        @post.destroy
+        if Post.find_by_id(params[:id])
+          if Post.find_by_id(params[:id]).destroy
+            render json: {}, status: 200
+          else
+            render json: { error: "Failed deleting post" }, status: 503
+          end
+        else
+          render json: { error: "No post found with id" }, status: 503
+        end
+        # @post = Post.find_by_id(params[:id])
+        # if not @post.nil?
+        #   if @post.update_attributes({ content: nil, user_id: nil })
+        #     render json: { post: @post }, status: 200
+        #   else
+        #     render json: { error: "Failed deleting post" }, status: 503
+        #   end
+        # else
+        #   render json: { error: "No post found with id" }, status: 503
+        # end
       end
 
       private
 
-      def post_params
-        params.require(:post).permit(:title, :content, :link, :subboard_id)
-      end
+        def post_params
+          params.require(:post).permit(:title, :content, :link, :author_username, :subboard_name)
+        end
 
     end
 
