@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     scope module: :v1 do
 
       resources :users
+      resources :users, param: :username
+      resources :subboards, param: :name
 
-      # resources :subboards
       # resources :posts
       # resources :comments
       # resources :moderators

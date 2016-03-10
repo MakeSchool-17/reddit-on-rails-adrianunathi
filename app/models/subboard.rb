@@ -21,6 +21,10 @@ class Subboard < ActiveRecord::Base
   validates :user_id, presence: true
   validates_associated :user
 
+  def to_json
+    {:id => self.id, :name => self.name, :private => self.private, :owner_username => self.user.username}
+  end
+
   private
 
     def downcase_name!

@@ -44,21 +44,21 @@ class PostTest < ActiveSupport::TestCase
     assert_not @urlpost.valid?
   end
 
-  test "temperature should be 0 initially" do
-    assert_equal 0, @contentpost.temperature
-  end
-
-  test "temperature should be valid" do
-    @contentpost.temperature = 100
-    assert @contentpost.valid?
-  end
-
-  test "temperature must be an integer" do
-    @contentpost.temperature = "bob"
-    assert_not @contentpost.valid?
-    @urlpost.temperature = 10.124
-    assert_not @urlpost.valid?
-  end
+  # test "temperature should be 0 initially" do
+  #   assert_equal 0, @contentpost.temperature
+  # end
+  #
+  # test "temperature should be valid" do
+  #   @contentpost.temperature = 100
+  #   assert @contentpost.valid?
+  # end
+  #
+  # test "temperature must be an integer" do
+  #   @contentpost.temperature = "bob"
+  #   assert_not @contentpost.valid?
+  #   @urlpost.temperature = 10.124
+  #   assert_not @urlpost.valid?
+  # end
 
   test "order should be most recent first" do
     assert_equal posts(:most_recent), Post.first
