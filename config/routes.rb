@@ -4,9 +4,8 @@ Rails.application.routes.draw do
 
     scope module: :v1 do
 
-      resources :users
-      resources :subboards
-      # get 'subboards/:name' => 'api/v1/subboards#show'
+      resources :users, param: :username
+      resources :subboards, param: :name
       # resources :posts
       # resources :comments
       # resources :moderators

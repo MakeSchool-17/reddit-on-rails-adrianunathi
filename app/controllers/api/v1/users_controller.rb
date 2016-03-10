@@ -13,29 +13,29 @@ module Api
       end
 
       def show
-        @user = User.find_by_id(params[:id])
+        @user = User.find_by_username(params[:username])
         if !@user.nil?
           render json: @user, status: 200
         else
-          render json: { error: "No users found with id" }, status: 503
+          render json: { error: "No users found with username" }, status: 503
         end
 
       end
 
       def destroy
-        if User.find_by_id(params[:id])
-          if User.find(params[:id]).destroy
+        if User.find_by_username(params[:username])
+          if User.find_by_username(params[:username]).destroy
             render json: {}, status: 200
           end
         else
-          render json: { error: "No users found with id" }, status: 503
+          render json: { error: "No users found with username" }, status: 503
         end
       end
 
       def update
-        @user = User.find_by_id(params[:id])
+        @user = User.find_by_username(params[:username])
         if @user.nil?
-          render json: { error: "No users found with id" }, status: 503
+          render json: { error: "No users found with username" }, status: 503
         else
           if @user.update_attributes(user_params)
             render json: {}, status: 200

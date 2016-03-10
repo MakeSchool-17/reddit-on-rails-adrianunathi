@@ -34,14 +34,14 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should show user for users#show" do
-    get :show, id: @user.id
+    get :show, username: @user.username
     response = JSON.parse(@response.body, { symbolize_names: true })
     assert_equal response[:username], @user.username
     assert_response 200
   end
 
   test "should not show non-existing user for users#show" do
-    get :show, id: 1
+    get :show, username: 'blahblah'
     response = JSON.parse(@response.body, { symbolize_names: true })
     assert !response[:error].nil?, "Error should be present"
     assert_response 503
@@ -49,27 +49,27 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
 
   test "should delete user for users#destroy" do
     assert_difference 'User.all.length', -1 do
-      post :destroy, id: @user.id
+      post :destroy, username: @user.username
       assert_response 200
     end
   end
 
   test "should fail delete non-existing user for users#destroy" do
     assert_no_difference 'User.all.length' do
-      post :destroy, id: 1
+      post :destroy, username: 'blahblah'
       assert_response 503
     end
   end
 
-  test "should update user for users#update" do
-    json = { format: 'json', id: @user.id, user: { username: "serendipity" }}
+  test "should update username for users#update" do
+    json = { format: 'json', username: @user.username, user: { username: "serendipity" }}
     post :update, json
     assert_equal @user.reload.username, "serendipity"
     assert_response 200
   end
 
   test "should not update non-existing user for users#update" do
-    json = { format: 'json', id: 1, user: { username: "serendipity" }}
+    json = { format: 'json', username: 'blahblah', user: { username: "serendipity" }}
     post :update, json
     assert_response 503
     response = JSON.parse(@response.body, { symbolize_names: true })
@@ -77,7 +77,7 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should not update user with bad params for users#update" do
-    json = { format: 'json', id: @user.id, user: { username: "bob" }}
+    json = { format: 'json', username: @user.username, user: { username: "bob" }}
     post :update, json
     assert_response 503
     response = JSON.parse(@response.body, { symbolize_names: true })

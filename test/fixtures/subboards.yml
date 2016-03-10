@@ -6,7 +6,7 @@ bobs_board:
   private: false
 
 cats_board:
-  user: lana
+  user: leila
   name: cats
   private: false
 
@@ -21,6 +21,7 @@ private:
   private: true
 
 most_recent:
+  user: bob
   name: "recentboard"
   private: false
   created_at: <%= Time.zone.now %>

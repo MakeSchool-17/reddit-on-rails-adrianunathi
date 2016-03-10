@@ -15,7 +15,7 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
     get :index
     assert_response 200
     response = JSON.parse(@response.body)
-    assert_equal response["subboards"].length, Subboard.all.length
+    assert_equal Subboard.all.length, response["subboards"].length
     # assert_equal response["users"], User.all.as_json
   end
 
@@ -35,14 +35,14 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
   end
 
   test "should show subboard for subboard#show" do
-    get :show, id: @subboard.id
+    get :show, name: @subboard.name
     response = JSON.parse(@response.body, { symbolize_names: true })
     assert_equal @subboard.name, response[:name]
     assert_response 200
   end
 
   test "should not show non-existing subboard for subboard#show" do
-    get :show, id: 1
+    get :show, name: 'blah blah'
     response = JSON.parse(@response.body, { symbolize_names: true })
     assert !response[:error].nil?, "Error should be present"
     assert_response 503
@@ -50,42 +50,42 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
 
   test "should delete user for subboard#destroy" do
     assert_difference 'Subboard.all.length', -1 do
-      post :destroy, id: @subboard.id
+      post :destroy, name: @subboard.name
       assert_response 200
     end
   end
 
   test "should fail delete non-existing subboard for users#destroy" do
     assert_no_difference 'Subboard.all.length' do
-      post :destroy, id: 1
+      post :destroy, name: 'blah blah'
       assert_response 503
     end
   end
 
   test "should update subboard for subboard#update" do
-    json = { format: 'json', id: @subboard.id, subboard: { private: true }}
+    json = { format: 'json', name: @subboard.name, subboard: { private: true }}
     post :update, json
     assert_equal true, @subboard.reload.private
     assert_response 200
   end
 
   test "should not update subboard name for subboard#update" do
-    json = { format: 'json', id: @subboard.id, subboard: { name: "serendipity" }}
+    json = { format: 'json', name: @subboard.name, subboard: { name: "serendipity" }}
     post :update, json
     assert_equal @subboard.name, @subboard.reload.name
-    assert_response 200
+    assert_response 503
   end
 
   test "should not update non-existing subbboard for subboard#update" do
-    json = { format: 'json', id: 1, subboard: { private: false }}
+    json = { format: 'json', name: 'blahblah', subboard: { private: false }}
     post :update, json
     assert_response 503
     response = JSON.parse(@response.body, { symbolize_names: true })
     assert !response[:error].nil?, "Error should be present"
   end
 
-  test "should not update user with bad params for users#update" do
-    json = { format: 'json', id: @user.id, subboard: { private: true }}
+  test "should not update subboard with bad params for subboard#update" do
+    json = { format: 'json', name: @subboard.name, subboard: { name: "newer" }}
     post :update, json
     assert_response 503
     response = JSON.parse(@response.body, { symbolize_names: true })
