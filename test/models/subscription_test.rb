@@ -3,9 +3,9 @@ require 'test_helper'
 class SubscriptionTest < ActiveSupport::TestCase
 
   def setup
-    @otheruser = users(:leila)
-    @subboard = subboards(:bobs_board)
-    @subscription = @subboard.subscribers.build(user: @otheruser)
+    @user = users(:james)
+    @subboard = subboards(:cats_board)
+    @subscription = @subboard.subscribers.build(user: @user)
   end
 
   test "should be valid" do
@@ -13,7 +13,7 @@ class SubscriptionTest < ActiveSupport::TestCase
   end
 
   test "should require a subboard" do
-    sample_sub = Subscription.new(subboard: nil, user: @otheruser)
+    sample_sub = Subscription.new(subboard: nil, user: @user)
     assert_not sample_sub.valid?
   end
 
@@ -30,9 +30,15 @@ class SubscriptionTest < ActiveSupport::TestCase
   end
 
   test "user has subscriptions to subboards" do
-    @otheruser.save
+    @user.save
     @subboard.save
-    assert_equal @subboard.subscribers.first.id, @otheruser.subscriptions.first.id
+    assert_equal @subboard.subscribers.first.id, @user.subscriptions.first.id
+  end
+
+  test "to_json outputs correctly" do
+    json = @subscription.to_json
+    expected_json = { username: @subscription.user.username, name: @subscription.subboard.name }
+    assert_equal json, expected_json
   end
 
 end
