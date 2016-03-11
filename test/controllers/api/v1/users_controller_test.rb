@@ -19,7 +19,11 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should create user for users#create" do
-    json = { format: 'json', user: { email: "test@test.com", username: "testing"}}
+    # debugger
+    json = { format: 'json', user: { email: "test@test.com",
+                                     username: "testing",
+                                     password: "testpassword123",
+                                     password_confirmation: "testpassword123" }}
     post :create, json
     assert_response 201
   end
