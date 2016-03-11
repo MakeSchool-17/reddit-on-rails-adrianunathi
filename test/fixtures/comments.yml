@@ -1,7 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+first_comment:
+  content: Some other stuff
+  user: michael
+  parent: bobs_post
+  parent_type: Comment
+
+
 most_recent:
   content: MyText
   user: michael
-  parent: sample_post
+  parent: bobs_post
   created_at: <%= Time.zone.now %>

@@ -39,8 +39,6 @@ module Api
         if not @post.nil?
           if @post.update_attributes({ active: false })
             render json: { post: @post.reload }, status: 200
-          else
-            render json: { error: "Failed deactivating post" }, status: 503
           end
         else
           render json: { error: "No post found with id" }, status: 503

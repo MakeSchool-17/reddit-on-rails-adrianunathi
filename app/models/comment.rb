@@ -2,8 +2,6 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :parent, polymorphic: true
-  belongs_to :post, polymorphic: true
-
 
   has_many :tempsetters, as: :post,
            class_name: "Temperature",
@@ -15,6 +13,7 @@ class Comment < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
+  validates :active, inclusion: { in: [true, false] }
   validates :content, presence: true
   validates :user_id, presence: true
   validates :parent_id, presence: true

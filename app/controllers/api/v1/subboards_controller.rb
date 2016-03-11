@@ -26,8 +26,8 @@ module Api
         if Subboard.find_by_name(params[:name])
           if Subboard.find_by_name(params[:name]).destroy
             render json: {}, status: 200
-          else
-            render json: { error: "Failed deleting subboard" }, status: 503
+          # else
+          #   render json: { error: "Failed deleting subboard" }, status: 503
           end
         else
           render json: { error: "No subboard found with name" }, status: 503

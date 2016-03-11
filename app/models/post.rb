@@ -2,8 +2,6 @@ class Post < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :subboard
-  belongs_to :post, polymorphic: true
-
 
   has_many :tempsetters, as: :post,
            class_name: "Temperature",
