@@ -10,10 +10,11 @@ class Api::V1::PostsControllerTest < ActionController::TestCase
 
   def teardown
     @subboard = nil
-    # @user = nil
+    @user = nil
+    @post = nil
   end
 
-  test "should get all users for user#index" do
+  test "should get all posts for post#index" do
     get :index
     assert_response 200
     response = JSON.parse(@response.body)
@@ -56,16 +57,19 @@ class Api::V1::PostsControllerTest < ActionController::TestCase
   end
 
   test "should nullify post for post#destroy" do
-    assert_difference 'Post.all.length', -1 do
-      post :destroy, id: @post.id
-      assert_response 200
-    end
+    post :destroy, id: @post.id
+    response = JSON.parse(@response.body, { symbolize_names: true })
+    assert_not response[:active]
+    assert_not @post.reload.active
+    assert_response 200
   end
 
-  test "should fail delete non-existing subboard for users#destroy" do
+  test "should fail nullifying non-existing post for post#destroy" do
     assert_no_difference 'Post.all.length' do
       post :destroy, id: 3
       assert_response 503
+      response = JSON.parse(@response.body, { symbolize_names: true })
+      assert_not response[:error].nil?, "Error should be present"
     end
   end
 

@@ -6,6 +6,7 @@ bobs_post:
   content: Some content is good.
   user: bob
   subboard: bobs_board
+  active: true
 
 most_recent:
   title: Recent Post Title
@@ -13,4 +14,5 @@ most_recent:
   content: I'm the most recent post ever.
   user: michael
   subboard: michaels_board
+  active: true
   created_at: <%= Time.zone.now %>

@@ -31,29 +31,20 @@ module Api
         Post.all.each do |post|
           @posts.append post.to_json
         end
-        render json: { status: 200, posts: @posts }
+        render json: { posts: @posts }, status: 200
       end
 
       def destroy
-        if Post.find_by_id(params[:id])
-          if Post.find_by_id(params[:id]).destroy
-            render json: {}, status: 200
+        @post = Post.find_by_id(params[:id])
+        if not @post.nil?
+          if @post.update_attributes({ active: false })
+            render json: { post: @post.reload }, status: 200
           else
-            render json: { error: "Failed deleting post" }, status: 503
+            render json: { error: "Failed deactivating post" }, status: 503
           end
         else
           render json: { error: "No post found with id" }, status: 503
         end
-        # @post = Post.find_by_id(params[:id])
-        # if not @post.nil?
-        #   if @post.update_attributes({ content: nil, user_id: nil })
-        #     render json: { post: @post }, status: 200
-        #   else
-        #     render json: { error: "Failed deleting post" }, status: 503
-        #   end
-        # else
-        #   render json: { error: "No post found with id" }, status: 503
-        # end
       end
 
       private
