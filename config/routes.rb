@@ -9,8 +9,7 @@ Rails.application.routes.draw do
       resources :subboards, param: :name
       resources :posts
       resources :comments
-      # resources :moderators
-      # List all resources here
+      resources :subscriptions, param: :username
 
     end
 
