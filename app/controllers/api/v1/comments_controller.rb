@@ -44,14 +44,13 @@ module Api
       end
 
       def destroy
-        if Comment.find_by_id(params[:id])
-          if Comment.find_by_id(params[:id]).destroy
-            render json: {}, status: 200
-          else
-            render json: { error: "Failed deleting Comment" }, status: 503
+        @comment = Comment.find_by_id(params[:id])
+        if not @comment.nil?
+          if @comment.update_attributes({ active: false })
+            render json: { comment: @comment.reload }, status: 200
           end
         else
-          render json: { error: "No Comment found with id" }, status: 503
+          render json: { error: "No comment found with id" }, status: 503
         end
       end
 

@@ -90,16 +90,19 @@ class Api::V1::CommentsControllerTest < ActionController::TestCase
   end
 
   test "should nullify comment for comment#destroy" do
-    assert_difference 'Comment.all.length', -1 do
-      post :destroy, id: @comment.id
-      assert_response 200
-    end
+    post :destroy, id: @comment.id
+    response = JSON.parse(@response.body, { symbolize_names: true })
+    assert_not response[:active]
+    assert_not @comment.reload.active
+    assert_response 200
   end
 
-  test "should fail delete non-existing comment for comment#destroy" do
+  test "should fail nullifying non-existing post for post#destroy" do
     assert_no_difference 'Comment.all.length' do
       post :destroy, id: 1
       assert_response 503
+      response = JSON.parse(@response.body, { symbolize_names: true })
+      assert_not response[:error].nil?, "Error should be present"
     end
   end
 

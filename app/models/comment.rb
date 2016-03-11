@@ -13,6 +13,7 @@ class Comment < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
+  validates :active, inclusion: { in: [true, false] }
   validates :content, presence: true
   validates :user_id, presence: true
   validates :parent_id, presence: true
