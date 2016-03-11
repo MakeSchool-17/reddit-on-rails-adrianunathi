@@ -2,8 +2,6 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :parent, polymorphic: true
-  belongs_to :post, polymorphic: true
-
 
   has_many :tempsetters, as: :post,
            class_name: "Temperature",
