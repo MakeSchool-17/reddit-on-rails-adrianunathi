@@ -15,6 +15,7 @@ class Post < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
+  validates :active, inclusion: { in: [true, false] }
   validates :user_id, presence: true
   validates :subboard_id, presence: true
   validates_associated :user
