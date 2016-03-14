@@ -5,6 +5,7 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
   def setup
     @subboard = subboards(:bobs_board)
     @user = users(:bob)
+    sign_in @user
   end
 
   def teardown
@@ -23,6 +24,13 @@ class Api::V1::SubboardsControllerTest < ActionController::TestCase
     json = { format: 'json', subboard: { name: "aboard", private: false, user_id: @user.id}}
     post :create, json
     assert_response 201
+  end
+
+  test "should not create subboard with unauthenticated user for subboard#create" do
+    sign_out @user
+    json = { format: 'json', subboard: { name: "aboard", private: false, user_id: @user.id}}
+    post :create, json
+    assert_response 401
   end
 
   test "should not create invalid subboard for subboard#create" do

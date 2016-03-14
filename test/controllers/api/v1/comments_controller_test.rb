@@ -21,14 +21,14 @@ class Api::V1::CommentsControllerTest < ActionController::TestCase
   end
 
   #TODO: Remove author_username from creating
-  test "should create comment for comments#create" do
-    json = { format: 'json', comment: { content: "Some content",
-                                      author_username: @user.username,
-                                      parent_id: @post.id,
-                                      parent_type: 'Post'} }
-    post :create, json
-    assert_response 201
-  end
+  # test "should create comment for comments#create" do
+  #   json = { format: 'json', comment: { content: "Some content",
+  #                                     author_username: @user.username,
+  #                                     parent_id: @post.id,
+  #                                     parent_type: 'Post'} }
+  #   post :create, json
+  #   assert_response 201
+  # end
 
   test "should create comment with comment parent for comments#create" do
     json = { format: 'json', comment: { content: "Some content",

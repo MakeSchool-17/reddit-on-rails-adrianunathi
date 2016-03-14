@@ -1,19 +1,12 @@
-module Api
-  module V1
+class Api::V1::ModeratorsController < ApplicationController
 
-    class ModeratorsController < ApplicationController
+  def create
+    @subboard = Subboard.find(params[:subboard_id])
+    # create moderator with subboard.
+  end
 
-      def create
-        @subboard = Subboard.find(params[:subboard_id])
-        # create moderator with subboard.
-      end
-
-      def destroy
-
-      end
-
-    end
+  def destroy
 
   end
-end
 
+end
