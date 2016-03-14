@@ -22,7 +22,7 @@ class Subboard < ActiveRecord::Base
   validates_associated :user
 
   def to_json
-    { :id => self.id, :name => self.name, :private => self.private, :owner_username => self.user.username }
+    { :name => self.name, :private => self.private, :owner_username => self.user.username }
   end
 
   private

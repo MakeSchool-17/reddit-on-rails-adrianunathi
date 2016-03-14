@@ -22,14 +22,14 @@ class Api::V1::SubscriptionsControllerTest < ActionController::TestCase
   end
 
   test "should create a subscription for subscription#create" do
-    json = { format: 'json', subscription: { username: @user.username,
-                                             name: @subboard.name } }
+    json = { format: 'json', username: @user.username,
+                                             name: @subboard.name }
     post :create, json
     assert_response 201
   end
 
   test "should not create subscription with non-existing username for subscription#create" do
-    json = { format: 'json', subscription: { username: "blabla", name: @subboard.name }}
+    json = { format: 'json', username: "blabla", name: @subboard.name }
     post :create, json
     response = JSON.parse(@response.body)
     assert_not response["error"].nil?, "Error should be present"
@@ -38,7 +38,7 @@ class Api::V1::SubscriptionsControllerTest < ActionController::TestCase
   end
 
   test "should not create subscription with non-existing subboard for subscription#create" do
-    json = { format: 'json', subscription: { username: @user.username, name: "blabla" }}
+    json = { format: 'json', username: @user.username, name: "blabla" }
     post :create, json
     response = JSON.parse(@response.body)
     assert_not response["error"].nil?, "Error should be present"
@@ -47,7 +47,7 @@ class Api::V1::SubscriptionsControllerTest < ActionController::TestCase
   end
 
   test "should not create duplicate subscription for subscription#create" do
-    json = { format: 'json', subscription: { username: @otheruser.username, name: @subboard.name }}
+    json = { format: 'json', username: @otheruser.username, name: @subboard.name }
     post :create, json
     response = JSON.parse(@response.body)
     assert_not response["error"].nil?, "Error should be present"

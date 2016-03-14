@@ -5,7 +5,7 @@ class ModeratorTest < ActiveSupport::TestCase
   def setup
     @otheruser = users(:leila)
     @subboard = subboards(:bobs_board)
-    @moderator = @subboard.moderators.build(user: @otheruser)
+    @moderator = @subboard.moderators.build(user: users(:bob))
   end
 
   test "should be valid" do

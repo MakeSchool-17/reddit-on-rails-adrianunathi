@@ -15,7 +15,7 @@ module Api
       def show
         @user = User.find_by_username(params[:username])
         if !@user.nil?
-          render json: @user, status: 200
+          render json: @user.to_json, status: 200
         else
           render json: { error: "No users found with username" }, status: 503
         end
@@ -46,8 +46,8 @@ module Api
       end
 
       def index
-        @user = User.all
-        render json: { users: @user }, status: 200
+        @users = User.all.map {|user| user.to_json}
+        render json: { users: @users }, status: 200
       end
 
       private

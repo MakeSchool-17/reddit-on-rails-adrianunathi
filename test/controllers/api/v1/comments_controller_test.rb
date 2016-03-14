@@ -14,36 +14,37 @@ class Api::V1::CommentsControllerTest < ActionController::TestCase
   end
 
   test "should get all comments for comments#index" do
-    get :index
+    json = { format: 'json', parent_id: @post.id, parent_type: 'posts'}
+    get :index, json
     assert_response 200
     response = JSON.parse(@response.body)
-    assert_equal Comment.all.length, response["comments"].length
+    assert_equal @post.comments.length, response["comments"].length
   end
 
   #TODO: Remove author_username from creating
   test "should create comment for comments#create" do
-    json = { format: 'json', comment: { content: "Some content",
+    json = { format: 'json', content: "Some content",
                                       author_username: @user.username,
                                       parent_id: @post.id,
-                                      parent_type: 'Post'} }
+                                      parent_type: 'Post'}
     post :create, json
     assert_response 201
   end
 
   test "should create comment with comment parent for comments#create" do
-    json = { format: 'json', comment: { content: "Some content",
+    json = { format: 'json', content: "Some content",
                                         author_username: @user.username,
                                         parent_id: @comment.id,
-                                        parent_type: 'Comment'} }
+                                        parent_type: 'Comment'}
     post :create, json
     assert_response 201
   end
 
   test "should not create comment with invalid params for comments#create" do
-    json = { format: 'json', comment: { content: "Some content",
+    json = { format: 'json', content: "Some content",
                                         author_username: @user.username,
                                         parent_id: @post.id,
-                                        parent_type: ''} }
+                                        parent_type: ''}
     post :create, json
     assert_response 500
     response = JSON.parse(@response.body)
@@ -52,10 +53,10 @@ class Api::V1::CommentsControllerTest < ActionController::TestCase
   end
 
   test "should not create comment with invalid user for comments#create" do
-    json = { format: 'json', comment: { content: "Some content",
+    json = { format: 'json', content: "Some content",
                                         author_username: "username",
                                         parent_id: @post.id,
-                                        parent_type: ''} }
+                                        parent_type: ''}
     post :create, json
     assert_response 500
     response = JSON.parse(@response.body)
@@ -64,10 +65,10 @@ class Api::V1::CommentsControllerTest < ActionController::TestCase
   end
 
   test "should not create empty contentfor comments#create" do
-    json = { format: 'json', comment: { content: '',
+    json = { format: 'json', content: '',
                                         author_username: @user.username,
                                         parent_id: @post.id,
-                                        parent_type: 'Post'} }
+                                        parent_type: 'Post'}
     post :create, json
     assert_response 500
     response = JSON.parse(@response.body)

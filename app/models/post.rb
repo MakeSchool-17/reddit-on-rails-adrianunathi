@@ -24,6 +24,10 @@ class Post < ActiveRecord::Base
 
   validate :link_xor_content
 
+  def to_json
+    self.as_json
+  end
+
   private
 
     def link_xor_content

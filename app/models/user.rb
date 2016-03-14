@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
+  def to_json
+    { username: self.username, email: self.email }
+  end
+
   private
 
     def downcase_email!

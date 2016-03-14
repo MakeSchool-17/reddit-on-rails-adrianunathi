@@ -5,7 +5,7 @@ module Api
 
       def create
         @user = User.find_by_username(post_params[:author_username])
-        @subboard = Subboard.find_by_name(post_params[:subboard_name])
+        @subboard = Subboard.find_by_name(post_params[:name])
         @post = @user.posts.build({ title: post_params[:title],
                                     link: post_params[:link],
                                     content: post_params[:content],
@@ -27,10 +27,8 @@ module Api
       end
 
       def index
-        @posts = Array.new
-        Post.all.each do |post|
-          @posts.append post.to_json
-        end
+        @board = Subboard.find_by_name(post_params[:name])
+        @posts = @board.posts.map {|post| post.to_json}
         render json: { posts: @posts }, status: 200
       end
 
@@ -48,7 +46,7 @@ module Api
       private
 
         def post_params
-          params.require(:post).permit(:title, :content, :link, :author_username, :subboard_name)
+          params.permit(:title, :content, :link, :author_username, :name)
         end
 
     end

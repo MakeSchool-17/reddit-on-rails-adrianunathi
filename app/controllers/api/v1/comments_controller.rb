@@ -6,9 +6,9 @@ module Api
       def create
         @user = User.find_by_username(comment_params[:author_username])
 
-        if comment_params[:parent_type] == 'Post'
+        if comment_params[:parent_type] == 'posts'
           @parent = Post.find_by_id(comment_params[:parent_id])
-        elsif comment_params[:parent_type] == 'Comment'
+        elsif comment_params[:parent_type] == 'comments'
           @parent = Comment.find_by_id(comment_params[:parent_id])
         end
 
@@ -36,10 +36,13 @@ module Api
       end
 
       def index
-        @comments = Array.new
-        Comment.all.each do |comment|
-          @comments.append comment.to_json
+        if comment_params[:parent_type] == 'posts'
+          @parent = Post.find_by_id(comment_params[:parent_id])
+        elsif comment_params[:parent_type] == 'comments'
+          @parent = Comment.find_by_id(comment_params[:parent_id])
         end
+
+        @comments = @parent.comments.map {|comment| comment.to_json}
         render json: { status: 200, comments: @comments }
       end
 
@@ -57,7 +60,7 @@ module Api
       private
 
         def comment_params
-          params.require(:comment).permit(:content, :post_id, :parent_id, :parent_type, :author_username)
+          params.permit(:content, :post_id, :parent_id, :parent_type, :author_username)
         end
 
     end

@@ -4,8 +4,8 @@ module Api
     class SubscriptionsController < ApplicationController
 
       def index
-        # debugger
-        @subscriptions = Subscription.all.map { |subscription| subscription.to_json }
+        @board = Subboard.find_by_name(params[:name])
+        @subscriptions = @board.subscribers.map { |subscription| subscription.to_json }
         render json: { subscriptions: @subscriptions }, status: 200
       end
 
@@ -45,7 +45,7 @@ module Api
       private
 
         def subscriptions_params
-          params.require(:subscription).permit(:username, :name)
+          params.permit(:username, :name)
         end
 
     end

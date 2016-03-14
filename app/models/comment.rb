@@ -20,4 +20,8 @@ class Comment < ActiveRecord::Base
   validates :parent_type, presence: true
   validates_associated :user, :parent
 
+  def to_json
+    self.as_json
+  end
+
 end

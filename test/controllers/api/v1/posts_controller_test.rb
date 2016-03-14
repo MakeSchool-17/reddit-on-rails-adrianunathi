@@ -15,26 +15,27 @@ class Api::V1::PostsControllerTest < ActionController::TestCase
   end
 
   test "should get all posts for post#index" do
-    get :index
+    json = { format: 'json', name: @subboard.name}
+    get :index, json
     assert_response 200
     response = JSON.parse(@response.body)
-    assert_equal Post.all.length, response["posts"].length
+    assert_equal @subboard.posts.length, response["posts"].length
   end
 
   test "should create post for post#create" do
-    json = { format: 'json', post: { title: "Some title",
+    json = { format: 'json', title: "Some title",
                                      content: "Some content",
                                      author_username: @user.username,
-                                     subboard_name: @subboard.name } }
+                                     subboard_name: @subboard.name }
     post :create, json
     assert_response 201
   end
 
   test "should not create post with invalid fields for post#create" do
-    json = { format: 'json', post: { title: "Some title",
+    json = { format: 'json', title: "Some title",
                                      content: "Some content",
                                      author_username: @user.username,
-                                     subboard_name: "bad subboard name" } }
+                                     subboard_name: "bad subboard name" }
     post :create, json
     response = JSON.parse(@response.body)
     assert_not response["error"].nil?, "Error should be present"
