@@ -25,5 +25,8 @@ module Pinit
 
     # API setup
     config.api_only = true
+
+    # Autoload lib files
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

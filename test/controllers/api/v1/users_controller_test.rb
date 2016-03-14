@@ -19,7 +19,6 @@ class Api::V1::UsersControllerTest < ActionController::TestCase
   end
 
   test "should create user for users#create" do
-    # debugger
     json = { format: 'json', user: { email: "test@test.com",
                                      username: "testing",
                                      password: "testpassword123",
